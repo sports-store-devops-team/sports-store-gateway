@@ -24,6 +24,12 @@ docker build -t sports-store/gateway:0.2.0 .
 
 The upstream DNS names must be resolvable on the container network; use the sibling `sports-store-local` Compose project for a complete local stack.
 
+## Observability
+
+NGINX writes minimal one-line JSON access logs to stdout without URLs, query
+strings, headers, cookies, or bodies. A loopback-only `stub_status` listener is
+available to the Kubernetes exporter sidecar and is never proxied publicly.
+
 ## Continuous integration
 
 Pull requests targeting `main` build the container and run `nginx -t` with local host mappings, without starting backend services or publishing an image. Pushes to `main` repeat validation, authenticate to AWS through GitHub OIDC, and publish exactly one immutable ECR image tagged `<VERSION>-<7-character-git-hash>`.
