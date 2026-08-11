@@ -1,4 +1,5 @@
-FROM nginx:1.27-alpine
+FROM nginxinc/nginx-unprivileged:1.30.4-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY proxy_params.conf /etc/nginx/proxy_params.conf
-EXPOSE 80
+USER 101
+EXPOSE 8080
